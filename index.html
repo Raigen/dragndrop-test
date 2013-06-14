@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Dran n Drop Test</title>
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <style type="text/css" media="all">
+            .row-fluid [class*="span"] {
+                background-color: rgba(0,0,100,.05);
+                min-height: 50px;
+            }
+            .drag-helper {
+                height: 50px;
+                background-color: rgba(0,0,0,.2);
+            }
+        </style>
+    </head>
+    <body class="container-fluid">
+    <div class="row-fluid toolbox">
+        <div class="span12">
+            <div id="dragme" class="btn new-text-element">element</div>
+        </div>
+    </div>
+    <div class="row-fluid editor" id="editor">
+        <div class="span12">
+            <div class="row-fluid row1">
+                <div class="span6">test1</div>
+                <div class="span6">test2</div>
+            </div>
+            <div class="row-fluid row2">
+                <div class="span3"></div>
+                <div class="span3"></div>
+                <div class="span3"></div>
+                <div class="span3"></div>
+            </div>
+            <div class="row-fluid droprow">
+                <div class="span1" data-slot="1"></div>
+                <div class="span1" data-slot="2"></div>
+                <div class="span1" data-slot="3"></div>
+                <div class="span1" data-slot="4"></div>
+                <div class="span1" data-slot="5"></div>
+                <div class="span1" data-slot="6"></div>
+                <div class="span1" data-slot="7"></div>
+                <div class="span1" data-slot="8"></div>
+                <div class="span1" data-slot="9"></div>
+                <div class="span1" data-slot="10"></div>
+                <div class="span1" data-slot="11"></div>
+                <div class="span1" data-slot="12"></div>
+            </div>
+        </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="textelement.js" type="text/javascript" charset="utf-8"></script>
+    </body>
+</html>
