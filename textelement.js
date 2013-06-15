@@ -9,9 +9,14 @@
                     'mouseover': 'addGrid',
                     'mouseleave': 'removeGrid'
                 },
+                slots: 0,
                 initialize: function () {
                     this.$el.css('position', 'relative');
                     this.$droprow = $('.droprow:first');
+                    //this.$('[class*="span"]').each(function (i, span) {
+                        //this.slots = this.slots + $(span).data('slots') + $(span).data('offset');
+                    //}, this);
+                    //this.$el.attr('data-slots', this.slots);
                 },
                 addGrid: function () {
                     var that = this;
@@ -19,11 +24,13 @@
                         this.grid = new window.DropDownGrid({
                             el: this.$droprow.clone(),
                             dropHandler: function (event, ui) {
-                                debugger;
-                                var offset = $(event.target).data('slot') - 1,
+                                console.log(that.$el.data('slots'));
+                                var parentSlots = that.$el.data('slots'),
+                                    offset = $(event.target).data('slot') - parentSlots - 1,
                                     slots = $(ui.draggable).data('slots'),
                                     newElement = $('<div class="span' + slots + ' offset' + offset + '"></div>');
                                 this.$el.after(newElement);
+                                that.$el.data('slots', parentSlots + offset + slots);
                             }
                         });
                         this.grid.$el.css({
@@ -53,7 +60,8 @@
                 dropHandler: function (event, ui) {
                     var offset = $(event.target).data('slot') - 1,
                         slots = $(ui.draggable).data('slots'),
-                        newElement = $('<div class="row-fluid"><div class="span' + slots + ' offset' + offset + '"></div></div>'),
+                        parentSlots = offset + slots,
+                        newElement = $('<div class="row-fluid" data-slots="' + parentSlots + '"><div class="span' + slots + ' offset' + offset + '"></div></div>'),
                         t;
                     this.$el.before(newElement);
                     t = new RowView({
