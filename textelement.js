@@ -3,68 +3,9 @@
 (function ($, Backbone) {
     'use strict';
     $(function () {
-        var RowView = Backbone.View.extend({
-                className: '.row-fluid',
-                events: {
-                    'mouseover': 'addGrid',
-                    'mouseleave': 'removeGrid'
-                },
-                slots: 0,
-                initialize: function () {
-                    this.$el.css('position', 'relative');
-                    this.$droprow = $('.droprow:first');
-                    this.slots = this.$el.data('slots');
-                },
-                addGrid: function () {
-                    var that = this;
-                    if (!this.grid) {
-                        this.grid = new window.DropDownGrid({
-                            el: this.$droprow.clone(),
-                            dropHandler: function (event, ui) {
-                                var parentSlots = that.slots,
-                                    offset = $(event.target).data('slot') - parentSlots - 1,
-                                    slots = $(ui.draggable).data('slots'),
-                                    newElement = $('<div class="span' + slots + ' offset' + offset + '"></div>');
-                                this.$el.after(newElement);
-                                that.slots = parentSlots + offset + slots;
-                            }
-                        });
-                        this.grid.$el.css({
-                            position: 'absolute'
-                        });
-                        this.$el.append(this.grid.$el);
-                    }
-                },
-                removeGrid: function () {
-                    if (this.grid) {
-                        this.grid.remove();
-                        this.grid = null;
-                    }
-                }
-            }),
-            DropGridView = Backbone.View.extend({
-                el: '.droprow',
-                events: {
-                    'drop .span1': 'dropHandler'
-                },
-                initialize: function () {
-                    this.$('.span1').droppable();
-                    if (this.options.dropHandler) {
-                        this.dropHandler = this.options.dropHandler;
-                    }
-                },
-                dropHandler: function (event, ui) {
-                    var offset = $(event.target).data('slot') - 1,
-                        slots = $(ui.draggable).data('slots'),
-                        parentSlots = offset + slots,
-                        newElement = $('<div class="row-fluid" data-slots="' + parentSlots + '"><div class="span' + slots + ' offset' + offset + '"></div></div>'),
-                        t;
-                    this.$el.before(newElement);
-                    t = new RowView({
-                        el: newElement
-                    });
-                }
-            }),
+        var RowView = window.RowView,
+            ElementVIew = window.ElementView,
+            DropGridView = window.DropGridView,
             EditorView = Backbone.View.extend({
                 el: '#editor',
             }),
@@ -85,7 +26,7 @@
             }),
             editorView = new EditorView(),
             textElementView = new TextElementView(),
-            dropDownGrid = new DropGridView();
+            dropDownGrid = new DropGridView({el: $('.droprow')});
         window.DropDownGrid = DropGridView;
         $('#editor .row-fluid:not(.droprow)').each(function (i, element) {
             var t = new RowView({
