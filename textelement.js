@@ -13,10 +13,7 @@
                 initialize: function () {
                     this.$el.css('position', 'relative');
                     this.$droprow = $('.droprow:first');
-                    //this.$('[class*="span"]').each(function (i, span) {
-                        //this.slots = this.slots + $(span).data('slots') + $(span).data('offset');
-                    //}, this);
-                    //this.$el.attr('data-slots', this.slots);
+                    this.slots = this.$el.data('slots');
                 },
                 addGrid: function () {
                     var that = this;
@@ -24,13 +21,12 @@
                         this.grid = new window.DropDownGrid({
                             el: this.$droprow.clone(),
                             dropHandler: function (event, ui) {
-                                console.log(that.$el.data('slots'));
-                                var parentSlots = that.$el.data('slots'),
+                                var parentSlots = that.slots,
                                     offset = $(event.target).data('slot') - parentSlots - 1,
                                     slots = $(ui.draggable).data('slots'),
                                     newElement = $('<div class="span' + slots + ' offset' + offset + '"></div>');
                                 this.$el.after(newElement);
-                                that.$el.data('slots', parentSlots + offset + slots);
+                                that.slots = parentSlots + offset + slots;
                             }
                         });
                         this.grid.$el.css({
